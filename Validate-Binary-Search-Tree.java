@@ -15,88 +15,95 @@
 15 */
 16class Solution {
 17    public boolean isValidBST(TreeNode root) {
-18        ArrayList<Integer> list = new ArrayList<>();
-19        dfs(root,list);
-20        for(int i=1;i<list.size();i++){
-21            if(list.get(i) <= list.get(i-1)) return false;
-22        }
-23        return true;   
-24    }
-25    private void dfs(TreeNode root,ArrayList<Integer>list){
-26        if(root == null) return;
-27        dfs(root.left,list);
-28        list.add(root.val);
-29        dfs(root.right,list);
-30    }
-31}
-32class twin{
-33        int max;
-34        int min;
-35        twin(int max,int min){
-36            this.max = max;
-37            this.min = min;
-38        }
-39    }
-40 // M-2 vvi
-41// class Solution {
-42//     boolean flag;
-43//     public boolean isBST(Node root) {
-44//         flag = true;
-45//         maxmin(root);
-46//         return flag;
-47//     }
-48//     private twin maxmin(Node root){
-49//         if(root == null) return new twin(Integer.MIN_VALUE,Integer.MAX_VALUE);
-50//         twin left = maxmin(root.left);
-51//         twin right = maxmin(root.right);
-52//         int max = Math.max(root.data,Math.max(left.max, right.max));
-53//         int min = Math.min(root.data, Math.min(left.min,right.min));
-54//         if(root.data<=left.max) flag = false;
-55//         if(root.data>=right.min) flag = false;
-56//         return new twin(max,min);
-57//     }
-58// }
-59
-60//M-3 vvi
-61// class Solution {
+18        TreeNode curr =root;
+19        Long prev =Long.MIN_VALUE;
+20        while(curr!=null){
+21            if(curr.left!=null){
+22                TreeNode pred = curr.left;
+23                while(pred.right!=null && pred.right!=curr){
+24                    pred = pred.right;
+25                }
+26                if(pred.right==null){
+27                    pred.right = curr;
+28                    curr = curr.left;
+29                }
+30                else{
+31                    pred.right = null;
+32                    if(curr.val<=prev) return false;
+33                    prev = (long)curr.val;
+34                    curr = curr.right;
+35                }
+36            }
+37            else{
+38                if(curr.val<=prev) return false;
+39                prev = (long)curr.val;
+40                curr = curr.right;
+41            }
+42        }
+43        return true;
+44
+45    }
+46}
+47
+48
+49    //     ArrayList<Integer> list = new ArrayList<>();
+50    //     dfs(root,list);
+51    //     for(int i=0;i<list.size()-1;i++){
+52    //         if(list.get(i) >= list.get(i+1)) return false;
+53    //     }
+54    //     return true;   
+55    // }
+56    // private void dfs(TreeNode root,ArrayList<Integer>list){
+57    //     if(root == null) return;
+58    //     dfs(root.left,list);
+59    //     list.add(root.val);
+60    //     dfs(root.right,list);
+61    // }
 62
-63//     public boolean isValidBST(TreeNode root) {
-64//         return check(root, Long.MIN_VALUE, Long.MAX_VALUE);
-65//     }
-66
-67//     private boolean check(TreeNode root, long min, long max){
-68
-69//         if(root == null) return true;
-70
-71//         if(root.val <= min || root.val >= max)
-72//             return false;
-73
-74//         return check(root.left, min, root.val) &&
-75//                check(root.right, root.val, max);
-76//     }
-77// }
-
-  M-4 vvi
-class Triptet{
-int max;
-int min;
-boolean isBST;
-}
-Triplet(int max, int min,boolean isBST){
-this.max max;
-this.min — min;
-this.isBST isBST;
-}
-class Solution{
-boolean isBST(Node root) {
-return maxMin(root).isBST;
-Triplet maxMin(Node root){
-if (root == null) return new Triplet (Integer.MIN_VALUE,INTEGER.MAX_VALUE,true);
-Triplet lst = maxMin(root. left);
-Triplet rst — maxMin(root. right);
-int max  = Math.max(root.data,Math.max(lst.max,rst.max));
-int min  = Math.min(root.data,Math.min(lst.min,rst.min));
-boolean isBST = lst.isBST && rst.isBST && lst.max<root.data && rst.min>root.data;
-return new Triplet(max,min,isBST);
-
-  
+63
+64 // M-2 vvi
+65//  class twin{
+66//         int max;
+67//         int min;
+68//         twin(int max,int min){
+69//             this.max = max;
+70//             this.min = min;
+71//         }
+72//     }
+73// class Solution {
+74//     boolean flag;
+75//     public boolean isBST(Node root) {
+76//         flag = true;
+77//         maxmin(root);
+78//         return flag;
+79//     }
+80//     private twin maxmin(Node root){
+81//         if(root == null) return new twin(Integer.MIN_VALUE,Integer.MAX_VALUE);
+82//         twin left = maxmin(root.left);
+83//         twin right = maxmin(root.right);
+84//         int max = Math.max(root.data,Math.max(left.max, right.max));
+85//         int min = Math.min(root.data, Math.min(left.min,right.min));
+86//         if(root.data<=left.max) flag = false;
+87//         if(root.data>=right.min) flag = false;
+88//         return new twin(max,min);
+89//     }
+90// }
+91
+92//M-3 vvi
+93// class Solution {
+94
+95//     public boolean isValidBST(TreeNode root) {
+96//         return check(root, Long.MIN_VALUE, Long.MAX_VALUE);
+97//     }
+98
+99//     private boolean check(TreeNode root, long min, long max){
+100
+101//         if(root == null) return true;
+102
+103//         if(root.val <= min || root.val >= max)
+104//             return false;
+105
+106//         return check(root.left, min, root.val) &&
+107//                check(root.right, root.val, max);
+108//     }
+109// }
