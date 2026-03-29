@@ -12,14 +12,15 @@
 12                    ans++;
 13                }
 14            }
-15        } else {
-16            for(int ele : map.keySet()){
-17                if(map.containsKey(ele + k)){
-18                    ans++;
-19                }
-20            }
-21        }
-22        return ans;
-23    }
-24}
-25    
+15        }
+16         else {
+17            for(int ele : map.keySet()){
+18                if(map.containsKey(ele + k)){
+19                    ans++;
+20                }
+21            }
+22        }
+23        return ans;
+24    }
+25}
+26    
