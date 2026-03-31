@@ -8,7 +8,7 @@
 8
 9        // better solution using dp
 10       dp = new int[n+1]; 
-11       return fibo(n);
+11       return fibo(n); // helper function
 12    }
 13    public int fibo(int n){
 14        if(n<=1) return n;
