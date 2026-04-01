@@ -22,5 +22,4 @@
 22        }
 23        return Math.min(arr[n-1],arr[n-2]);
 24    }
-25    
-26}
+25}
