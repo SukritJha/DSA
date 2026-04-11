@@ -23,7 +23,7 @@
 23    }
 24    private int helper(int i, int j, int[][] grid, int[][]dp){
 25        if(i==0&&j==0) return grid[0][0];
-26        if(i<0||j<0) return Integer.MAX_VALUE;
+26        if(i<0||j<0) return Integer.MAX_VALUE; // kyuki hame min value chahiye toh base case mein max lenge
 27        if(dp[i][j] != -1) return dp[i][j];
 28        int down = helper(i-1,j,grid,dp);
 29        int right = helper(i,j-1,grid,dp);
