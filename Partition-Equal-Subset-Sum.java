@@ -10,19 +10,17 @@
 10        else return helper(0,nums,target,dp);
 11    }
 12    private boolean helper(int i,int[]nums,int target,int[][]dp){
-13        if(i==nums.length){
-14            if(target == 0) return true;
-15            else return false;
-16        }
-17        if(dp[i][target]!=-1) return (dp[i][target]==1);
-18        boolean ans = false;
-19        boolean skip = helper(i+1,nums,target,dp);
-20        if(nums[i]>target) ans = skip;
-21        else{
-22             boolean take = helper(i+1,nums,target-nums[i],dp);
-23             ans = skip || take;
-24        } 
-25        dp[i][target] = (ans) ? 1:0;
-26        return ans;
-27    }
-28}
+13        if(target == 0) return true;
+14        if(i == nums.length) return false;
+15        if(dp[i][target]!=-1) return (dp[i][target]==1);
+16        boolean ans = false;
+17        boolean skip = helper(i+1,nums,target,dp);
+18        if(nums[i]>target) ans = skip;
+19        else{
+20             boolean take = helper(i+1,nums,target-nums[i],dp);
+21             ans = skip || take;
+22        } 
+23        dp[i][target] = (ans) ? 1:0;
+24        return ans;
+25    }
+26}
